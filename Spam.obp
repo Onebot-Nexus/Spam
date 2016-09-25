@@ -8,8 +8,8 @@ exports.onMessageReceived = (function Repeat(bot, doc, user, userID, channelID, 
         return;
     }
     if (message.startsWith("*spam ")) {
-        var spamtimes = message.split(" ")[2];
-        var tospam = message.split(" ").slice(0, 3);
+        var spamtimes = message.split(" ")[1];
+        var tospam = message.split(" ").slice(2);
         bot.sendMessage({
             to: doc.logchannel,
             message: user + " made bot spam the message `" + tospam + "` " + spamtimes + " times."
@@ -17,8 +17,8 @@ exports.onMessageReceived = (function Repeat(bot, doc, user, userID, channelID, 
         repeat(function () {
         bot.sendMessage({
             to: channelID,
-            message: message.match(/^.{8}(.*)/)[1]
+            message: tospam
         });
-        }, 5);
+        }, spamtimes);
     }
 });
